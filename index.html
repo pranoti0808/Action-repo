@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GitHub Events</title>
+</head>
+<body>
+  <h2>GitHub Webhook Events</h2>
+  <ul id="eventList"></ul>
+
+  <script>
+    async function loadEvents() {
+      const res = await fetch('http://localhost:5000/events');
+      const events = await res.json();
+      const ul = document.getElementById('eventList');
+      ul.innerHTML = '';
+      events.forEach(e => {
+        const li = document.createElement('li');
+        li.textContent = e.message;
+        ul.appendChild(li);
+      });
+    }
+
+    loadEvents();
+    setInterval(loadEvents, 15000);
+  </script>
+</body>
+</html>
